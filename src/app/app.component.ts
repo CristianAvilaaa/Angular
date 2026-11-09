@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { BookService } from './book.service';
 
 @Component({
   selector: 'app-root',
@@ -10,24 +11,28 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app.component.css'
 })
 export class App {
-  // Variable usada para la Interpolación y el Two-Way Binding
+  private bookService = inject(BookService);
+
   nombreUsuario: string = 'Estudiante';
-
-  // Variable usada para el Property Binding de la imagen
-  imagenUrl: string = 'https://angular.io/assets/images/logos/angular/angular.svg';
-
-  // Variable de control booleana para el Estado Lógico con @if
+imagenUrl: string = 'https://angular.io/assets/images/logos/angular/angular.svg';
   estaLogueado: boolean = false;
-
-  // Arreglo de datos para la Lista Iterada con la directiva @for
   listaLibros: string[] = ['Clean Code', 'Arquitectura Limpia', 'Refactoring'];
 
-  // Método / Función ejecutada por el Event Binding del Botón
+  ngOnInit() {
+    this.bookService.getBooks().subscribe({
+      next: (data) => {
+        console.log('Libros cargados desde el backend:', data);
+      },
+      error: (err) => {
+        console.error('Error al conectar con la API:', err);
+      }
+    });
+  }
+
   saludar() {
     alert("Hola, el evento funciona correctamente");
   }
 
-  // Método que cambia el estado lógico de la variable booleana
   cambiarEstado() {
     this.estaLogueado = !this.estaLogueado;
   }
