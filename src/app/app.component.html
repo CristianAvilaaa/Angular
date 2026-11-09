@@ -1,0 +1,39 @@
+<!-- 1. INTERPOLACIÓN: Muestra el valor de una variable del TS usando doble llave -->
+<h1>Bienvenido, {{ nombreUsuario }}</h1>
+
+<!-- 2. PROPERTY BINDING: Enlaza una propiedad de HTML ([src]) con una variable del TS -->
+<img [src]="imagenUrl" alt="Logo" width="100">
+
+<br><br>
+
+<!-- 3. EVENT BINDING: Atrapa un evento del usuario ((click)) para invocar un método del TS -->
+<button (click)="saludar()">Hacer Clic (Alerta)</button>
+
+<br><br>
+
+<!-- 4. TWO-WAY BINDING: Conecta un input en ambas vías en tiempo real con [(ngModel)] -->
+<label>Escribe tu nombre: </label>
+<input type="text" [(ngModel)]="nombreUsuario" placeholder="Tu nombre...">
+
+<br><br>
+
+<!-- 5. ESTADO LÓGICO CON @if / @else: Controla el flujo visual según una condición booleana -->
+<button (click)="cambiarEstado()">
+  @if (estaLogueado) { Cerrar Sesión } @else { Iniciar Sesión }
+</button>
+
+@if (estaLogueado) {
+  <p style="color: green; font-weight: bold;">Usuario logueado con exito.</p>
+} @else {
+  <p style="color: red;">No estas logueado.</p>
+}
+
+<hr>
+
+<!-- 6. LISTA ITERADA CON DIRECTIVA @for: Recorre un arreglo del TS para renderizar elementos -->
+<h3>Lista de Libros (Directiva &#64;for):</h3>
+<ul>
+  @for (libro of listaLibros; track libro) {
+    <li>{{ libro }}</li>
+  }
+</ul>
